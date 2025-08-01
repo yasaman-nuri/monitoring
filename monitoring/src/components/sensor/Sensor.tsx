@@ -7,28 +7,25 @@ import type { RootState } from "../../state-management/store";
 import EditSensor from "../editSensor/EditSensor";
 import type { SensorProps } from "../../models/SensorModel";
 // import { useForm } from "react-hook-form";
-import { removeSensor } from "../../state-management/sensorSlice";
+import { removeSensor, updateSensorValues } from "../../state-management/sensorSlice";
 
 const Sensor = () => {
   const sensors = useSelector((state: RootState) => state.sensorData.items);
   const [sensorToEdit, setSensorToEdit] = useState<SensorProps | null>(null);
-  const [changedValue, setChangedValue] = useState<number>();
- const generateRandom = () => {
+  
 
-    const newValue = (Math.floor(Math.random() * 100) + 1);
-    console.log(newValue);
-    
-    return setChangedValue(newValue)
- 
-};
   const dispatch = useDispatch();
   // const {reset} = useForm<SensorProps>()
 
   useEffect(() => {
-    setTimeout(()=>{generateRandom()},200)
+    const interval = setInterval(() => {
+      dispatch(updateSensorValues())
+    }, 1000);
     console.log('changed');
     
-  }, []);
+    
+    return () => clearInterval(interval);
+  }, [dispatch]);
 
   const handleOnEdit = (data: SensorProps) => {
     setSensorToEdit(data);
@@ -38,6 +35,7 @@ const Sensor = () => {
   };
   return (
     <div>
+      {JSON.stringify(sensors)}
       <div>
         <AddSensor />
       </div>

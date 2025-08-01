@@ -28,8 +28,15 @@ export const sensorSlice = createSlice({
       state.items[index] = action.payload;
       sensorService.setDataInLocalStorage(state.items);
     },
+    updateSensorValues:(state)=>{
+      
+      state.items.map((s)=>{
+        s.value = Math.floor(Math.random()*100)+1
+      })
+      sensorService.setDataInLocalStorage(state.items)
+    }
   },
 });
 
-export const { addSensor, removeSensor, editSensor } = sensorSlice.actions;
+export const { addSensor, removeSensor, editSensor,updateSensorValues } = sensorSlice.actions;
 export default sensorSlice.reducer;
