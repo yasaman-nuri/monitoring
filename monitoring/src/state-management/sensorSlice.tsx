@@ -5,8 +5,9 @@ import { sensorService } from "../apiServices/sensorService";
 export interface SensorState {
   items: SensorProps[];
 }
+
 const initialState: SensorState = {
-  items: sensorService.getAll(),
+  items: sensorService.getAll()
 };
 export const sensorSlice = createSlice({
   name: "sensorData",

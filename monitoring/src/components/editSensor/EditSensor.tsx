@@ -10,14 +10,14 @@ const EditSensor = ({ sensorToEdit }: sensorToEditProps) => {
   //   const sensors = useSelector((state: RootState) => state.sensorData.items);
   const dispatch = useDispatch();
 
-  const { register, handleSubmit } = useForm<SensorProps>();
+  const { register, handleSubmit, reset } = useForm<SensorProps>();
   const handleSubmitt = (data: SensorProps) => {
     dispatch(editSensor(data));
   };
 
   return (
     <div>
-        {JSON.stringify(sensorToEdit)}
+      {/* {JSON.stringify(sensorToEdit)} */}
       <form onSubmit={handleSubmit(handleSubmitt)}>
         <div>
           <label>شناسه سنسور</label>
@@ -53,7 +53,6 @@ const EditSensor = ({ sensorToEdit }: sensorToEditProps) => {
         </div>
         <div>
           <button type="submit">ذخیره</button>
-          <button type="submit">انصراف</button>
         </div>
       </form>
     </div>

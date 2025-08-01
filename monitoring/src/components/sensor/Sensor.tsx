@@ -1,22 +1,40 @@
 import { useEffect, useState } from "react";
 
-import { sensorService } from "../../apiServices/sensorService";
+// import { sensorService } from "../../apiServices/sensorService";?
 import AddSensor from "../addSensor/AddSensor";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../state-management/store";
 import EditSensor from "../editSensor/EditSensor";
 import type { SensorProps } from "../../models/SensorModel";
+// import { useForm } from "react-hook-form";
+import { removeSensor } from "../../state-management/sensorSlice";
 
 const Sensor = () => {
   const sensors = useSelector((state: RootState) => state.sensorData.items);
-  const [sensorToEdit, setSensorToEdit] = useState<SensorProps>();
+  const [sensorToEdit, setSensorToEdit] = useState<SensorProps | null>(null);
+  const [changedValue, setChangedValue] = useState<number>();
+ const generateRandom = () => {
+
+    const newValue = (Math.floor(Math.random() * 100) + 1);
+    console.log(newValue);
+    
+    return setChangedValue(newValue)
+ 
+};
+  const dispatch = useDispatch();
+  // const {reset} = useForm<SensorProps>()
 
   useEffect(() => {
-    sensorService.initialize();
+    setTimeout(()=>{generateRandom()},200)
+    console.log('changed');
+    
   }, []);
 
   const handleOnEdit = (data: SensorProps) => {
     setSensorToEdit(data);
+  };
+  const handleOnRemove = (data: SensorProps) => {
+    dispatch(removeSensor(data));
   };
   return (
     <div>
@@ -30,14 +48,12 @@ const Sensor = () => {
             {sensor.name} {sensor.value}
             <div>
               <button onClick={() => handleOnEdit(sensor)}>ویرایش</button>
-            </div>
-            <div>
-              <button>حذف</button>
+              <button onClick={() => handleOnRemove(sensor)}>حذف</button>
             </div>
           </div>
         ))}
       </div>
-      <EditSensor sensorToEdit={sensorToEdit!} />
+      {sensorToEdit && <EditSensor sensorToEdit={sensorToEdit!} />}
     </div>
   );
 };
