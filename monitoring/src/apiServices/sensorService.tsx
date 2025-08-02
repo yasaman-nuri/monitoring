@@ -11,12 +11,14 @@ export const sensorService = {
         name: "دما",
         unit: "°C",
         value: 18,
+        lastTenValues: [18]
       },
       {
         id: "2",
         name: "رطوبت",
         unit: "%",
         value: 45,
+        lastTenValues: [45]
       },
     ];
     sensorService.setDataInLocalStorage(defaultSensors);

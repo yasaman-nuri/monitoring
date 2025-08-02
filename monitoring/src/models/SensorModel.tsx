@@ -3,4 +3,5 @@ export interface SensorProps {
   name: string;
   unit: string;
   value: number;
+  lastTenValues:Array<any>;
 }

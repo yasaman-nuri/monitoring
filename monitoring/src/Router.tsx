@@ -1,7 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import Sensor from "./components/sensor/Sensor";
 
-import DisplayResult from "./components/displayResult/DisplayResult";
+
+import Dashboard from "./components/dashboard/Dashboard";
 const router = createBrowserRouter([
   {
     path: "sensors",
@@ -9,7 +10,7 @@ const router = createBrowserRouter([
   },
   {
     path:"device-manager",
-    element: <DisplayResult/>
+    element: <Dashboard/>
   }
 ]);
 export default router
